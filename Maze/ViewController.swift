@@ -66,7 +66,7 @@ class ViewController: UIViewController {
             }
         }
         
-        playerView = UIView(frame: CGRectMake(0, 2, screenSize.width / 60, screenSize.height / 60))//わからない
+        playerView = UIView(frame: CGRectMake(0, 0, screenSize.width / 60, screenSize.height / 60))//わからない
         playerView.center = startView.center
         playerView.backgroundColor = UIColor.grayColor()
         self.view.addSubview(playerView)
@@ -78,11 +78,13 @@ class ViewController: UIViewController {
         self.startAccelerometer()
         
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     func createView(x x: Int, y: Int, width: CGFloat, height: CGFloat, offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> UIView {
         let rect = CGRect(x: 0, y: 0, width: width, height: height)
@@ -96,6 +98,8 @@ class ViewController: UIViewController {
         view.center = center
         return view
     }
+    
+    
     func startAccelerometer() {
         
         //加速度を取得する
@@ -127,12 +131,14 @@ class ViewController: UIViewController {
             for wallRect in self.wallRectArray {
                 if (CGRectIntersectsRect(wallRect, self.playerView.frame)) {
                     self.gameCheck("GameOver", message: "壁に当たりました。")
+//                    NSLog("Game Over")
                     return
                 }
             }
             
             if (CGRectIntersectsRect(self.goalView.frame, self.playerView.frame)) {
                 self.gameCheck("Clear!", message: "クリアしました！")
+//                NSLog("Clear")
                 return
             }
             
@@ -141,6 +147,7 @@ class ViewController: UIViewController {
         //加速度の開始
         playerMotionManager.startAccelerometerUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: handler)
     }
+    
     
     func gameCheck(result: String, message: String) {
         
